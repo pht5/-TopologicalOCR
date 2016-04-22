@@ -1,3 +1,8 @@
-aaPCA = imageToPointCloud(rgb2gray(imread('B2.png')),1);
-aaPCE = imageToPointCloud(rgb2gray(imread('E5.png')),1);
-aaPCG = imageToPointCloud(rgb2gray(imread('G5.png')),1);
+PCC = imageToPointCloud(rgb2gray(imread('Z1.png')),1);
+PCMir = PCMirror(PCC,1);
+blankImage = zeros(100,200);
+for i = 1:size(PCMir,1)
+    blankImage(PCMir(i,1),PCMir(i,2)) = 255;
+end
+figure(); clf;
+imshow(blankImage);
