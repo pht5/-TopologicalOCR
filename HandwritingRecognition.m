@@ -1,11 +1,11 @@
 % Uses an instance of letterData to perform k-nearest-neighbor classifier
-load('letterimagedata.mat') %TODO: create letterimagedata.mat
+load('letterimagedata.mat') 
 
 % Extract features
-dataClass.extractFeatures ;
+dataClassLetter.extractFeatures ;
 
 % TODO: figure out what this is and comment on it
-groups = dataClass.type;
+groups = dataClassLetter.type;
 kFolds = 10;
 crossValPartition = cvpartition(groups,'KFold',kFolds) ;
 
@@ -20,9 +20,9 @@ for k = 1:kFolds
     testIndices  = crossValPartition.test(k) ;
     
     % Train the classifier on the k-th fold
-    knnModel = fitcknn(dataClass.features(trainIndices,:),dataClass.type(trainIndices)) ;
-    classEstimatesFold = predict(knnModel,dataClass.features(testIndices,:)) ;
-    classLabelsFold = dataClass.category(testIndices) ;
+    knnModel = fitcknn(dataClassLetter.features(trainIndices,:),dataClassLetter.type(trainIndices)) ;
+    classEstimatesFold = predict(knnModel,dataClassLetter.features(testIndices,:)) ;
+    classLabelsFold = dataClassLetter.type(testIndices) ;
     
     % Store the results of classification for each fold
     classEstimates = [classEstimates ; classEstimatesFold] ;

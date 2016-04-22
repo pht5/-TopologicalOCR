@@ -19,7 +19,7 @@ classdef letterData < handle
             %The characters recognized by the classifier. We'll use the
             %capital letters:
             D.uniqueType = {'A','B','C','D','E','F','G','H','I','J','K',...
-                'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+                'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}';
             D.nType = length(D.uniqueType);
             D.countType = zeros(D.nType, 1) + imagesPerChar;
             D.nImages = imagesPerChar*D.nType;
@@ -55,7 +55,8 @@ classdef letterData < handle
             
             % Extract features from each of the power time series
             for i = 1:D.nImages
-                D.features(i,1) = min(D.data(1,1,i)) ; % 100th value in the timeseries
+                image = D.data{i};
+                D.features(i,1) = image(1,1) ; % 1st pixel in image
             end       
         end
     end  

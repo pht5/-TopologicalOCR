@@ -24,9 +24,9 @@ for k = 1:kFolds
     testIndices  = crossValPartition.test(k);
     
     % Train the classifier on the k-th fold
-    knnModel = fitcknn(dataClass.features(trainIndices,:),dataClass.type(trainIndices));
+    knnModel = fitcknn(dataClass.features(trainIndices,:),dataClass.category(trainIndices));
     classEstimatesFold = predict(knnModel,dataClass.features(testIndices,:));
-    classLabelsFold = dataClass.type(testIndices);
+    classLabelsFold = dataClass.category(testIndices);
     
     % Store the results of classification for each fold
     classEstimates = [classEstimates ; classEstimatesFold];
