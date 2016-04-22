@@ -56,12 +56,32 @@ classdef letterData < handle
             % Initialize the receptable for the features to be extracted to
             nFeatures = 1;
             D.features = nan(D.nImages,nFeatures) ;
-            
+            %Prep:
+            distLimit = 0.8;
+            init;
+            tic
             % Extract features from each of the power time series
             for i = 1:D.nImages
-                image = D.data{i};
-                D.features(i,1) = image(1,1) ; % 1st pixel in image
-            end       
+                PC = imageToPointCloud(D.data{i},0);
+                distances = pdist(PC);
+                dm = squareform(distances);
+                %compute persistence from distance matrix
+                %Change distLimit to optimize:
+                distanceBoundOnEdges = distLimit*max(distances);
+                I = rca1dm(dm,distanceBoundOnEdges);
+                sortedI = sortbypersistence(I);
+                if(length(sortedI) >=1)
+                    D.features(i,1) = sortedI(1);%Persistence of 1st 1-cycle
+                else
+                    D.features(i,1) = 0;
+                end
+                if(length(sortedI) >=2)
+                    D.features(i,2) = sortedI(2);%Persistence of 2nd 1-cycle
+                else
+                    D.features(i,2) = 0;
+                end
+            end  
+            toc
         end
     end  
   

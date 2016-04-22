@@ -1,14 +1,14 @@
+init;
+distLimit = 0.8;
 tic
 for i = 1:5
-imageName = sprintf('%c%d.png','O',i);
+imageName = sprintf('%c%d.png','A',i);
 APC = imageToPointCloud(rgb2gray(imread(imageName)),0);
 distances = pdist(APC);
 dm = squareform(distances);
 %compute persistence from distance matrix
 %Change distLimit to optimize:
-distLimit = 0.8;
 distanceBoundOnEdges = distLimit*max(distances);
-init;
 I = rca1dm(dm,distanceBoundOnEdges);
 sortedI = sortbypersistence(I);
 end

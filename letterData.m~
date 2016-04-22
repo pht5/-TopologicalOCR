@@ -19,7 +19,7 @@ classdef letterData < handle
             %The characters recognized by the classifier. We'll use the
             %capital letters:
             D.uniqueType = {'A','B','C','D','E','F','G','H','I','J','K',...
-                'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}';
+                'L','M','N','O','P'}%,'Q','R','S','T','U','V','W','X','Y','Z'}';
             D.nType = length(D.uniqueType);
             D.countType = zeros(D.nType, 1) + imagesPerChar;
             D.nImages = imagesPerChar*D.nType;
@@ -35,9 +35,9 @@ classdef letterData < handle
                     D.data{numImage} = rgb2gray(image);
                     D.type{numImage} = D.uniqueType{i};
                     %For testing:
-                    if(j == 1)
-                    imageToPointCloud(D.data{numImage, 1);
-                    end
+%                     if(j == 5)
+%                     imageToPointCloud(D.data{numImage}, 1);
+%                     end
                 end
             end
         end
@@ -56,11 +56,24 @@ classdef letterData < handle
             % Initialize the receptable for the features to be extracted to
             nFeatures = 1;
             D.features = nan(D.nImages,nFeatures) ;
-            
+            %Prep:
+            distLimit = 0.8;
+            init;
             % Extract features from each of the power time series
             for i = 1:D.nImages
-                image = D.data{i};
-                D.features(i,1) = image(1,1) ; % 1st pixel in image
+                PC = imageToPointCloud(D.data{i});
+                distances = pdist(PC);
+                dm = squareform(distances);
+                %compute persistence from distance matrix
+                %Change distLimit to optimize:
+                distanceBoundOnEdges = distLimit*max(distances);
+                I = rca1dm(dm,distanceBoundOnEdges);
+                sortedI = sortbypersistence(I);
+                if(length(sortedI) >=1)
+                    D.features(i,1) = 
+                end
+                else
+                    D.
             end       
         end
     end  
