@@ -31,20 +31,18 @@ classdef letterData < handle
                 for j = 1:imagesPerChar
                     imageName = sprintf('%c%d.png',D.uniqueType{i},j);
                     image = imread(imageName);
-                    numImage = imagesPerChar*(i-1)+j;
-                    D.data{numImage} = rgb2gray(image);
-                    D.type{numImage} = D.uniqueType{i};
+                    D.data{imagesPerChar*(i-1)+j} = rgb2gray(image);
+                    D.type = D.uniqueType{i};
                 end
             end
         end
         
         function viewData(D)
             %View selected images:
-            spacing = 5;
+            spacing = 10;
             figure()
             for i = 1:spacing:length(D.data)
-               imshow(D.data{i});
-               pause(0.3);
+               imshow( 
             end
         end
         
