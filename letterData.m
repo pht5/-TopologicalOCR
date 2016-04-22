@@ -19,7 +19,7 @@ classdef letterData < handle
             %The characters recognized by the classifier. We'll use the
             %capital letters:
             D.uniqueType = {'A','B','C','D','E','F','G','H','I','J','K',...
-                'L','M','N','O','P'}%,'Q','R','S','T','U','V','W','X','Y','Z'}';
+                'L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}';
             D.nType = length(D.uniqueType);
             D.countType = zeros(D.nType, 1) + imagesPerChar;
             D.nImages = imagesPerChar*D.nType;
@@ -35,9 +35,9 @@ classdef letterData < handle
                     D.data{numImage} = rgb2gray(image);
                     D.type{numImage} = D.uniqueType{i};
                     %For testing:
-%                     if(j == 5)
-%                     imageToPointCloud(D.data{numImage}, 1);
-%                     end
+                    if(j == 5)
+                    imageToPointCloud(D.data{numImage}, 1);
+                    end
                 end
             end
         end
@@ -54,7 +54,7 @@ classdef letterData < handle
         
         function extractFeatures(D)
             % Initialize the receptable for the features to be extracted to
-            nFeatures = 1;
+            nFeatures = 2;
             D.features = nan(D.nImages,nFeatures) ;
             %Prep:
             distLimit = 0.8;
@@ -80,6 +80,8 @@ classdef letterData < handle
                 else
                     D.features(i,2) = 0;
                 end
+%                 image = D.data{i};
+%                 D.features(i,1) = image(1,1);
             end  
             toc
         end

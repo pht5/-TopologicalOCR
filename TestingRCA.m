@@ -2,7 +2,7 @@ init;
 distLimit = 0.8;
 tic
 for i = 1:5
-imageName = sprintf('%c%d.png','A',i);
+imageName = sprintf('%c%d.png','B',i);
 APC = imageToPointCloud(rgb2gray(imread(imageName)),0);
 distances = pdist(APC);
 dm = squareform(distances);

@@ -15,7 +15,7 @@ function PC = imageToPointCloud(image, testing)
     %Unfortunately, we can't pre-allocate PC, don't know how many points
     PC = [];
     counter = 1;
-    groupSize = 7;
+    groupSize = 9;
     for i = 1:groupSize:R-groupSize+1
         for j = 1:groupSize:C-groupSize+1
             %Take a groupsize X groupsize section of image:
@@ -26,6 +26,8 @@ function PC = imageToPointCloud(image, testing)
                 %Place dot according to where black actually is:
                 rLoc = round(mean(rowInd));
                 cLoc = round(mean(colInd));
+%                 rLoc = floor(groupSize/2);
+%                 cLoc = floor(groupSize/2);
                 PC(counter,1) = i + rLoc;
                 PC(counter,2) = j + cLoc;
                 counter = counter + 1;
