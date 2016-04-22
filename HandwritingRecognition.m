@@ -1,6 +1,6 @@
 % Uses an instance of letterData to perform k-nearest-neighbor classifier
 DCL = [];
-size = 3;
+size = 1;
 switch size
     case 1
         load('testLetterDataSmall.mat'); 

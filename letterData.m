@@ -1,11 +1,11 @@
 classdef letterData < handle
     %This class holds all letter data, including both training and test,
-    %and can be used to view the data and extract features. 
+    %and can be used to view the data and extract features.
     %Heavily based on powerData.m (Bradbury, Huettel, 2015)
     properties
         data = []; %This will be a cell array made up of many images
         type = []; %The different letters (capital A-Z)
-        nImages = []; 
+        nImages = [];
         features = [];
         
         uniqueType     = [] ;   % A unique list of types
@@ -36,7 +36,7 @@ classdef letterData < handle
                     D.type{numImage} = D.uniqueType{i};
                     %For testing:
                     if(j == 5)
-                    imageToPointCloud(D.data{numImage}, 1);
+                        imageToPointCloud(D.data{numImage}, 1);
                     end
                 end
             end
@@ -47,29 +47,23 @@ classdef letterData < handle
             spacing = 5;
             figure()
             for i = 1:spacing:length(D.data)
-               imshow(D.data{i});
-               pause(0.3);
+                imshow(D.data{i});
+                pause(0.3);
             end
         end
         
         function extractFeatures(D)
             % Initialize the receptable for the features to be extracted to
-            nFeatures = 2;
+            nFeatures = 18;
             D.features = nan(D.nImages,nFeatures) ;
             %Prep:
-            distLimit = 0.8;
             init;
             tic
             % Extract features from each of the power time series
             for i = 1:D.nImages
+                %1-D persistence
                 PC = imageToPointCloud(D.data{i},0);
-                distances = pdist(PC);
-                dm = squareform(distances);
-                %compute persistence from distance matrix
-                %Change distLimit to optimize:
-                distanceBoundOnEdges = distLimit*max(distances);
-                I = rca1dm(dm,distanceBoundOnEdges);
-                sortedI = sortbypersistence(I);
+                sortedI = findPersistences(PC);
                 if(length(sortedI) >=1)
                     D.features(i,1) = sortedI(1);%Persistence of 1st 1-cycle
                 else
@@ -80,11 +74,21 @@ classdef letterData < handle
                 else
                     D.features(i,2) = 0;
                 end
-%                 image = D.data{i};
-%                 D.features(i,1) = image(1,1);
-            end  
+                %Mirrored Homology:
+                for j = 1:4
+                    PCM = PCMirror(PC,j);
+                    sortedIM = findPersistences(PCM);
+                    for k = 1:4
+                        if(length(sortedIM) >=k)
+                            D.features(i,2 + 4*(j-1) + k) = sortedIM(k);
+                        else
+                            D.features(i,2 + 4*(j-1) + k) = 0;
+                        end
+                    end
+                end
+                
+            end
             toc
         end
-    end  
-  
+    end
 end
