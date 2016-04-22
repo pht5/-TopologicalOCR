@@ -1,14 +1,19 @@
-APC = imageToPointCloud(rgb2gray(imread('A1.png')),0);
-
+tic
+for i = 1:5
+imageName = sprintf('%c%d.png','O',i);
+APC = imageToPointCloud(rgb2gray(imread(imageName)),0);
 distances = pdist(APC);
 dm = squareform(distances);
 %compute persistence from distance matrix
-distanceBoundOnEdges = 0.8*max(distances);
+%Change distLimit to optimize:
+distLimit = 0.8;
+distanceBoundOnEdges = distLimit*max(distances);
 init;
-tic
-[I,J] = rca1dm(dm,distanceBoundOnEdges);
-toc
+I = rca1dm(dm,distanceBoundOnEdges);
 sortedI = sortbypersistence(I);
+end
+disp('time is:')
+toc
 
 
 figure;plot(sortedI(:,3),'r*');

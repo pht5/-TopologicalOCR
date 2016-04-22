@@ -115,14 +115,14 @@ tda.RCA1( { 'taskChoice=M12', 'supplyDataAs=distanceMatrix', param2 }, dm );  % 
 
 % hjs 10/21/2014 Add expanded I1 results, and tie them to zeroGen input parameter
 if BirthDeathGivers
-	I0 = tda.getResults(0).getIntervalsAndBirthDeathGiversDim0;  % 0-D intervals with extra info
+% 	I0 = tda.getResults(0).getIntervalsAndBirthDeathGiversDim0;  % 0-D intervals with extra info
 	I1 = tda.getResults(1).getIntervalsAndBirthDeathGiversDim1;  % 1-D intervals with extra info
 else 
-	I0 = tda.getResults(0).getIntervals;  % 0-D intervals
+% 	I0 = tda.getResults(0).getIntervals;  % 0-D intervals
 	I1 = tda.getResults(1).getIntervals;  % 1-D intervals
 end
 
-edges = tda.getResults(2); % number of edges
+% edges = tda.getResults(2); % number of edges
 % redcols = tda.getResults(3); % number of columns in the reduction matrix
 % 
 % % hjs 11/17/2014 Add extra outputs for timing and memory info
@@ -135,10 +135,10 @@ edges = tda.getResults(2); % number of edges
 
 varargout{1}=I1;
 
-if nargout>1
-    varargout{2}=I0;
-end
-
+% if nargout>1
+%     varargout{2}=I0;
+% end
+% 
 % if nargout>2
 %     varargout{3}=edges;
 %     varargout{4}=redcols;
