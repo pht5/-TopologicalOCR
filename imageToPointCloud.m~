@@ -20,15 +20,14 @@ function PC = imageToPointCloud(image, testing)
         for j = 1:groupSize:C-groupSize+1
             %Take a groupsize X groupsize section of image:
             section = image(i:(i+groupSize-1),j:(j+groupSize-1));
-            mask = (section <= threshold);
-            hasBlack = max(mask(:));
-            if(hasBlack)
-                PC(counter,1) = i + floor(groupSize/2);
-                PC(counter,2) = j + floor(groupSize/2);
+            ha
+            if(image(i,j) <= threshold)
+                PC(counter,1) = i;
+                PC(counter,2) = j;
                 counter = counter + 1;
                 %Testing only:
                 if(testing)
-                newImage(i + floor(groupSize/2),j + floor(groupSize/2)) = 255;
+                newImage(i,j) = 255;
                 end
             end
         end
