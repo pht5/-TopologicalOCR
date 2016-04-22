@@ -123,15 +123,15 @@ else
 end
 
 edges = tda.getResults(2); % number of edges
-redcols = tda.getResults(3); % number of columns in the reduction matrix
-
-% hjs 11/17/2014 Add extra outputs for timing and memory info
-computationTimeM12 = tda.getResults(4); % timing info (formatted) for computation of matrix M12
-reductionTimeM12 = tda.getResults(5); % % timing info (formatted) for reduction of matrix M12
-computationTimeRawM12 = tda.getResults(6); % timing info (raw) for computation of matrix M12
-reductionTimeRawM12 = tda.getResults(7); % % timing info (raw) for reduction of matrix M12
-memoryUseBeforeComputingM12 = tda.getResults(8); % memory use before computation of matrix M12
-memoryUseAfterComputingM12 = tda.getResults(9); % % memory use after computation (before reduction) of matrix M12
+% redcols = tda.getResults(3); % number of columns in the reduction matrix
+% 
+% % hjs 11/17/2014 Add extra outputs for timing and memory info
+% computationTimeM12 = tda.getResults(4); % timing info (formatted) for computation of matrix M12
+% reductionTimeM12 = tda.getResults(5); % % timing info (formatted) for reduction of matrix M12
+% computationTimeRawM12 = tda.getResults(6); % timing info (raw) for computation of matrix M12
+% reductionTimeRawM12 = tda.getResults(7); % % timing info (raw) for reduction of matrix M12
+% memoryUseBeforeComputingM12 = tda.getResults(8); % memory use before computation of matrix M12
+% memoryUseAfterComputingM12 = tda.getResults(9); % % memory use after computation (before reduction) of matrix M12
 
 varargout{1}=I1;
 
@@ -139,23 +139,23 @@ if nargout>1
     varargout{2}=I0;
 end
 
-if nargout>2
-    varargout{3}=edges;
-    varargout{4}=redcols;
-end
-
-if nargout>4
-    varargout{5}=computationTimeM12;
-    varargout{6}=reductionTimeM12;
-end
-
-if nargout>6
-    varargout{7}=computationTimeRawM12;
-    varargout{8}=reductionTimeRawM12;
-end
-
-if nargout>8
-    varargout{9}=memoryUseBeforeComputingM12;
-    varargout{10}=memoryUseAfterComputingM12;
-end
+% if nargout>2
+%     varargout{3}=edges;
+%     varargout{4}=redcols;
+% end
+% 
+% if nargout>4
+%     varargout{5}=computationTimeM12;
+%     varargout{6}=reductionTimeM12;
+% end
+% 
+% if nargout>6
+%     varargout{7}=computationTimeRawM12;
+%     varargout{8}=reductionTimeRawM12;
+% end
+% 
+% if nargout>8
+%     varargout{9}=memoryUseBeforeComputingM12;
+%     varargout{10}=memoryUseAfterComputingM12;
+% end
 end

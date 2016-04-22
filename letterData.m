@@ -35,7 +35,7 @@ classdef letterData < handle
                     D.data{numImage} = rgb2gray(image);
                     D.type{numImage} = D.uniqueType{i};
                     %For testing:
-                    if(j == 4)
+                    if(j == 1)
                     imageToPointCloud(image, 1);
                     end
                 end
