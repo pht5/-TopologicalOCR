@@ -34,6 +34,10 @@ classdef letterData < handle
                     numImage = imagesPerChar*(i-1)+j;
                     D.data{numImage} = rgb2gray(image);
                     D.type{numImage} = D.uniqueType{i};
+                    %For testing:
+                    %if(j == 4)
+                    %imageToPointCloud(image);
+                    %end
                 end
             end
         end
