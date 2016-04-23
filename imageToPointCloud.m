@@ -15,7 +15,7 @@ function PC = imageToPointCloud(image, testing)
     %Unfortunately, we can't pre-allocate PC, don't know how many points
     PC = [];
     counter = 1;
-    groupSize = 9;
+    groupSize = 5;
     for i = 1:groupSize:R-groupSize+1
         for j = 1:groupSize:C-groupSize+1
             %Take a groupsize X groupsize section of image:

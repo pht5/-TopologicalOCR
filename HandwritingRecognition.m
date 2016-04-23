@@ -17,7 +17,7 @@ DCL.extractFeatures ;
 
 % TODO: figure out what this is and comment on it
 groups = DCL.type;
-kFolds = 10;
+kFolds = 5;
 crossValPartition = cvpartition(groups,'KFold',kFolds) ;
 
 % TODO: recomment all this when you understand it better:
