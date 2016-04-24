@@ -1,6 +1,6 @@
 % Uses an instance of letterData to perform k-nearest-neighbor classifier
 DCL = [];
-size = 1;
+size = 4;
 switch size
     case 1
         load('testLetterDataSmall.mat'); 
@@ -11,9 +11,11 @@ switch size
     case 3
         load('letterImageData.mat'); 
         DCL = dataClassLetter;
+    case 4
+        DCL = dataClassLetterSpecial;
 end
 % Extract features
-DCL.extractFeatures ;
+DCL.extractFeatures(5);
 
 % TODO: figure out what this is and comment on it
 groups = DCL.type;

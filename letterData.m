@@ -35,8 +35,8 @@ classdef letterData < handle
                     D.data{numImage} = rgb2gray(image);
                     D.type{numImage} = D.uniqueType{i};
                     %For testing:
-                    if(j == 5)
-                        imageToPointCloud(D.data{numImage}, 1);
+                    if(j == 3)
+                        imageToPointCloud(D.data{numImage}, 1,1);
                     end
                 end
             end
@@ -52,9 +52,9 @@ classdef letterData < handle
             end
         end
         
-        function extractFeatures(D)
+        function extractFeatures(D,groupSize)
             % Initialize the receptable for the features to be extracted to
-            nFeatures = 18;
+            nFeatures = 14;
             D.features = nan(D.nImages,nFeatures) ;
             %Prep:
             init;
@@ -62,15 +62,15 @@ classdef letterData < handle
             % Extract features from each of the power time series
             for i = 1:D.nImages
                 %1-D persistence
-                PC = imageToPointCloud(D.data{i},0);
+                PC = imageToPointCloud(D.data{i},0, groupSize);
                 sortedI = findPersistences(PC);
                 if(length(sortedI) >=1)
-                    D.features(i,1) = sortedI(1);%Persistence of 1st 1-cycle
+                    D.features(i,1) = 1.5*sortedI(1);%Persistence of 1st 1-cycle
                 else
                     D.features(i,1) = 0;
                 end
                 if(length(sortedI) >=2)
-                    D.features(i,2) = sortedI(2);%Persistence of 2nd 1-cycle
+                    D.features(i,2) = 1.5*sortedI(2);%Persistence of 2nd 1-cycle
                 else
                     D.features(i,2) = 0;
                 end
@@ -78,12 +78,17 @@ classdef letterData < handle
                 for j = 1:4
                     PCM = PCMirror(PC,j);
                     sortedIM = findPersistences(PCM);
-                    for k = 1:4
-                        if(length(sortedIM) >=k)
-                            D.features(i,2 + 4*(j-1) + k) = sortedIM(k);
-                        else
-                            D.features(i,2 + 4*(j-1) + k) = 0;
-                        end
+                    weightFactor = 20;
+                    D.features(i,2 + 3*(j-1)+1) = weightFactor*computeNumCycles(sortedIM,groupSize);
+                    if(length(sortedIM) >= 1)
+                        D.features(i,2+3*(j-1)+2) = sortedIM(1);
+                    else
+                        D.features(i,2+3*(j-1)+2) = 0;
+                    end
+                    if(length(sortedIM) >= 2)
+                        D.features(i,2+3*(j-1)+3) = sortedIM(2);
+                    else
+                        D.features(i,2+3*(j-1)+3) = 0;
                     end
                 end
                 

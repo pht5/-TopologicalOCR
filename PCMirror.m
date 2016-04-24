@@ -1,8 +1,6 @@
 function mirroredPC = PCMirror(PC, dir)
 %TODO: mirrored PC
 switch dir
-    case 0
-        mirroredPC = PC;
     %Right
     case 1
         %mirrorPC will contain twice as many points as PC:

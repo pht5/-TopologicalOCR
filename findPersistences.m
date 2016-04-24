@@ -1,6 +1,6 @@
-        function sortedI = findPersistences(PC)
+        function sortedI = findPersistences(PointCloud)
             distLimit = 0.8;
-            distances = pdist(PC);
+            distances = pdist(PointCloud);
             dm = squareform(distances);
             %compute persistence from distance matrix
             %Change distLimit to optimize:
