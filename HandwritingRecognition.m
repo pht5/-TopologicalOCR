@@ -1,6 +1,7 @@
+%
 % Uses an instance of letterData to perform k-nearest-neighbor classifier
 DCL = [];
-size = 4;
+size = 3;
 switch size
     case 1
         load('testLetterDataSmall.mat'); 
@@ -17,12 +18,10 @@ end
 % Extract features
 DCL.extractFeatures(5);
 
-% TODO: figure out what this is and comment on it
 groups = DCL.type;
 kFolds = 5;
 crossValPartition = cvpartition(groups,'KFold',kFolds) ;
 
-% TODO: recomment all this when you understand it better:
 % For each of the k-Folds, train a kNN classifier on the training data
 % features and test on the test features
 classEstimates = []; 

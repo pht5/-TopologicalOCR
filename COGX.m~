@@ -1,0 +1,5 @@
+imageName = sprintf('%c%d.png','A',1);
+PC = imageToPointCloud(rgb2gray(imread(imageName)),0,1);
+%Computes center of gravity in the x direction, as a percentage of total
+%width
+scaledX = (PC(:,2) - min(PC(:,2)))./(max(PC(:,2)) - min(PC(:,2)));
